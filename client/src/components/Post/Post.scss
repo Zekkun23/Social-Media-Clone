@@ -1,0 +1,125 @@
+@import url(../../style.scss);
+
+.Post {
+  
+  border: 1px solid grey;
+
+
+  .container {
+    padding: 20px;
+    button {
+      top: 30px;
+      right: 0;
+      border: none;
+      background-color: #f0544f;
+      padding: 5px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .userInfo {
+        display: flex;
+        gap: 20px;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50px;
+          object-fit: cover;
+        }
+
+        .details {
+          display: flex;
+          flex-direction: column;
+
+          .name {
+            font-weight: 500;
+          }
+
+          .date {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .content {
+      margin: 20px 0px;
+      img[src$=".jpg"] {
+        border-radius: 20px;
+        width: 100%;
+        min-height: 50px;
+        object-fit: cover;
+        margin-top: 20px;
+      }
+    }
+
+    .info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+    }
+
+    .icon-delete-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+
+      .user {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .userInfo {
+          gap: 10px;
+
+          img {
+            width: 30px;
+            height: 30px;
+          }
+
+          .details {
+            .name {
+              font-size: 14px;
+            }
+
+            .date {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+
+      .content {
+        margin: 10px 0px;
+        img[src$=".jpg"] {
+          margin-top: 10px;
+        }
+      }
+
+      .info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+    }
+  }
+}

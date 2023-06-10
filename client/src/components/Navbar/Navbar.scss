@@ -1,0 +1,74 @@
+@import "../../Style.scss";
+
+
+.navbar{
+display: flex;
+position: absolute;
+align-items: center;
+justify-content: space-between;
+padding: 10px 20px;
+height: 60px;
+z-index: 1;
+color: #f1f1fa;
+
+position: sticky;
+top: 0;
+background-color: #0c042e; opacity: 0.8; filter: alpha(opacity=50);
+
+
+@include mobile {
+    width: 80vh; /* change height to width */
+    padding: 10px;
+    height: auto;
+}
+
+//Blur Effect
+
+    .left{
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        
+        span{
+            font-weight: bold;
+            font-size: 25px;
+            color: #543ee9 ;
+            text-shadow: lightgray 10px;
+        }
+    }
+
+    .right{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+
+        @include mobile{
+            display: none;
+        }
+
+        span{
+
+        }
+
+        .search{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #f1f1fa;
+            border-radius: 5px;
+            padding: 5px;
+            
+            input{
+                border: none;
+                width: 250px;
+                background-color: transparent;
+                color: #f1f1fa;
+
+                @include mobile{
+                    display: none;
+                }
+            }
+        }
+        }
+    }

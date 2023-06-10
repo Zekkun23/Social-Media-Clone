@@ -1,0 +1,103 @@
+.login{
+height: 100vh;
+background-color: #0c042e;
+display: flex;
+align-items: center;
+justify-content: center;
+
+    .card{
+        width: 50%;
+        display: flex;
+        border-radius: 20px;
+        border: 1px solid #f1f1fa;
+        background-color: #0c042e;
+        color: #f1f1fa;
+        min-height: 600px;
+        overflow: hidden;
+
+        .left{
+            flex: 1;
+            background:url("https://images.pexels.com/photos/10321102/pexels-photo-10321102.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") center;
+            background-size: cover;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            color: white;
+
+        }
+
+        .right{
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            justify-content: center;
+
+            h1{
+                font-size: 50px;
+                line-height: 60px;
+            }
+
+            h2{
+                font-size: 30px;
+            }
+            span{
+                font-size: 14px;
+            }
+            button{
+                width: 50%;
+                padding: 10px;
+                border: none;
+                background-color: white;
+                color: #543ee9;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+
+            form{
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+
+                input{
+                    color: white;
+                    border: none;
+                    background-color: grey;
+                    border-bottom: 1px solid grey;
+                    padding: 20px 10px;
+
+                }
+                
+                ::placeholder {
+                    color: white;
+                    opacity: 1; 
+                  }
+                button{
+                    width: 50%;
+                    padding: 10px;
+                    border: none;
+                    background-color: #543ee9 ;
+                    color: white;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+            }
+            .bottom{
+                span{
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+                a{
+                    color: white;
+
+                    &:hover{
+                        color: #543ee9 ;
+                    }
+                }
+            }
+        }
+    }
+}

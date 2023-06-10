@@ -1,0 +1,99 @@
+@import "../../Style.scss";
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.rightbar{
+
+background-color: #0c042e;
+    flex: 1.8;
+    position: sticky;
+    top: 75px;
+    height: calc(98vh - 55px);
+    @include mobile{
+        display: none;
+    }
+
+.container{
+    padding: 20px;
+    
+    .item{
+        -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+        -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+        box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+        padding: 20px;
+        margin-bottom: 10px;
+        
+        span{
+            color: #f1f1fa;
+        }
+
+        .people{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0px;
+            color: #f1f1fa;
+
+            .person{
+                display: flex;
+                align-items: center;
+                gap: 20px;
+
+                img{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+
+            .buttons{
+                display: flex;
+                align-items: center;
+                gap: 0px;
+
+                button{  
+                border-radius: 10%;
+                border-radius: .5px black;
+                padding: 5px;
+                background-color: white;
+                color: black;
+                cursor: pointer;
+                }
+            }
+        }
+
+        .posts{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 20px 0px;
+            gap: 20px;
+            color: #f1f1fa;
+            
+
+            .post{
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                
+                img{
+                    width: 100px;
+                    height: 80px;
+                    border-radius: 10px;
+                    object-fit: cover;
+                }
+
+                .desc{
+                    span{
+                        font-weight: 500;
+                    } 
+                }
+            }
+ }
+        
+        }
+    }
+}     
