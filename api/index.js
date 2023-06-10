@@ -1,52 +1,69 @@
-import express from "express";
-const app = express();
-import authRoutes from "./routes/auth.js"
-import userRoutes from "./routes/users.js"
-import postRoutes from "./routes/posts.js"
-import likeRoutes from "./routes/likes.js"
-import relationshipRoutes from "./routes/relationships.js"
-import commentRoutes from "./routes/comments.js"
-import cookieParser from "cookie-parser";
-import cors from "cors"; 
-import multer from "multer";
+import { useContext, useState } from "react";
+import "./Comments.scss";
+import { AuthContext } from "../../context/authContext";
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { makeRequest } from "../../axios";
+import moment from "moment";
 
+const Comments = ({ postId }) => {
+  // State variables
+  const [desc, setDesc] = useState("");
+  const { currentUser } = useContext(AuthContext);
 
+  // Fetching comments data for the post using React Query
+  const { isLoading, error, data } = useQuery(['comments'], () =>
+    makeRequest.get("/comments?postId=" + postId).then((res => {
+      return res.data;
+    }))
+  );
 
-//middlewares
-app.use((req,res,next) =>{
-  res.header("Access-Control-Allow-Credentials", true)
-  next()
-})
-app.use(express.json())
-app.use(cors({
-    origin: "http://localhost:3000",
-}))
-app.use(cookieParser())
+  console.log(data)
 
-//https://www.npmjs.com/package/multer
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "../client/public/upload");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + file.originalname);
-  },
-});
+  const queryClient = useQueryClient();
 
-const upload = multer({ storage: storage });
+  // Mutation for adding a new comment
+  const mutation = useMutation(
+    (newComment) => {
+      return makeRequest.post("/comments", newComment);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["comments"]);
+      },
+    }
+  );
 
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  const file = req.file;
-  res.status(200).json(file.filename);
-});
+  // Function to handle the comment submission
+  const handleClick = async (e) => {
+    e.preventDefault();
+    mutation.mutate({ desc, postId });
+    setDesc("");
+  };
 
-app.use("/api/auth", authRoutes)
-app.use("/api/users", userRoutes)
-app.use("/api/posts", postRoutes)
-app.use("/api/comments", commentRoutes)
-app.use("/api/likes", likeRoutes)
-app.use("/api/relationships", relationshipRoutes)
+  return (
+    <div className="comments">
+      <div className="userinput">
+        <img src={"/upload/" + currentUser.profilePic} alt="" />
+        <input
+          type="text"
+          placeholder="Write a comment"
+          value={desc}
+          onChange={e => setDesc(e.target.value)}
+        />
+        <button onClick={handleClick}>Send</button>
+      </div>
+      {error ? "Something went wrong" : isLoading ? "loading" : data.map((comment) => (
+        <div className="comment" key={comment.id}>
+          <img src={comment.userId === currentUser.id ? "/upload/" + currentUser.profilePic : "/upload/" + comment.profilePic} alt="" />
+          <div className="info">
+            <span>{comment.name}</span>
+            <p>{comment.desc}</p>
+          </div>
+          <span className="date">{moment(comment.createdAt).fromNow()}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-app.listen(3307, ()=>{
-    console.log("It works!")
-})
+export default Comments;

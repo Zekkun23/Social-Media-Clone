@@ -12,11 +12,14 @@ import { makeRequest } from "../../axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Post = ({ post }) => {
+  // State variables
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Accessing current user information from the AuthContext
   const { currentUser } = useContext(AuthContext);
 
+  // Fetching likes data for the post using React Query
   const { isLoading, data } = useQuery(["likes", post.id], () =>
     makeRequest.get("/likes?postId=" + post.id).then((res) => {
       return res.data;
@@ -25,6 +28,7 @@ const Post = ({ post }) => {
 
   const queryClient = useQueryClient();
 
+  // Mutation for handling like/unlike functionality
   const mutation = useMutation(
     (liked) => {
       if (liked) return makeRequest.delete("/likes?postId=" + post.id);
@@ -37,10 +41,12 @@ const Post = ({ post }) => {
     }
   );
 
+  // Function to handle like/unlike action
   const handleLike = () => {
     mutation.mutate(data.includes(currentUser.id));
   };
 
+  // Mutation for deleting a post
   const deleteMutation = useMutation(
     (postId) => {
       return makeRequest.delete("/posts/" + postId);
@@ -52,6 +58,7 @@ const Post = ({ post }) => {
     }
   );
 
+  // Function to handle post deletion
   const handleDelete = () => {
     deleteMutation.mutate(post.id);
   };
